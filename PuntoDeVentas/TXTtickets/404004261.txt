@@ -1,0 +1,17 @@
+Papelería - Generacion de Ticket de Venta
+
+Lo atendió: dorian
+Folio del ticket: 404004261
+Fecha: %31/3/2020% || 6:35:28
+-------------------------
+
+Nombre: algo de algo    $14.0, Folio: <4> -- Tipo de Producto: algo
+
+-------------------------
+Subtotal: $14.0
+IVA: $2.24
+Total: $16.24
+Pago: $20
+Cambio: $3.7600002
+
+Direccion: X X X X, gracias por su preferencia.

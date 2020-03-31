@@ -20,7 +20,7 @@ public class ClassUsuarios {
 		this.coreeo = coreeo;
 	}
 
-	public ClassUsuarios(int id, String tipoUsuario, String apellidoP, String nombreUsuario, String coreeo,
+	public ClassUsuarios(int id, String tipoUsuario,String nombreUsuario, String apellidoP,  String coreeo,
 			String contrasena1, String contrasena2) {
 		
 		this.id = id;

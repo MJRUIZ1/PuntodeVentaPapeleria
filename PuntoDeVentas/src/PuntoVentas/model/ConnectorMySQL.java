@@ -6,7 +6,7 @@ public class ConnectorMySQL {
 	public static Connection getConnection() {
 		Connection conn;
 		try {
-			conn = DriverManager.getConnection("jdbc:sqlite:src/PuntoVentas/model/puntoventas.db");
+			conn = DriverManager.getConnection("jdbc:sqlite:puntoventas.db");
 			return conn;
 		}catch(Exception e) {
 			e.printStackTrace();

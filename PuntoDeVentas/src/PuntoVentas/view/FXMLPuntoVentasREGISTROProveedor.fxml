@@ -14,7 +14,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a72a28" height="524.0" layoutX="81.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" width="787.0" />
       <ImageView fitHeight="648.0" fitWidth="886.0" layoutX="20.0" layoutY="20.0" opacity="0.12" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../imagenes/Screenshot_2020-02-14%2025326374-resumen-elaborado-por-acuarela-de-fondo-ilustración-vectorial-acuarelas-manchas-húmedas-colo%5B...%5D.png" />
+            <Image url="@imagenes/img1.png" />
          </image>
       </ImageView>
       <TextField fx:id="CAJAfolioproduct" layoutX="309.0" layoutY="368.0" prefHeight="26.0" prefWidth="330.0" promptText="Folio" />

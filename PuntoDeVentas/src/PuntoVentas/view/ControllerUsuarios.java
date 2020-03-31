@@ -21,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -29,6 +30,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ControllerUsuarios implements Initializable {
+	private String query1 = "SELECT * FROM listausuarios order by ID ASC ";
+	@FXML
+	private ComboBox<String> comboFiltrado;
 	@FXML
 	private Button Salir;
 	@FXML
@@ -63,6 +67,11 @@ public class ControllerUsuarios implements Initializable {
 	
 	
 	 public void initialize(URL url, ResourceBundle rb) {
+		 if(comboFiltrado.getItems().isEmpty()) {
+	    		comboFiltrado.getItems().removeAll(comboFiltrado.getItems());
+	    		comboFiltrado.getItems().addAll("Por ID", "Por Nombre", "Por Apellido","Tipo de Usuario","Por Correo");
+	    		comboFiltrado.getSelectionModel().select("Por ID");
+	    	}
 		 	ID.setCellValueFactory(new PropertyValueFactory<>("id"));
 		 	apellidoPaterno.setCellValueFactory(new PropertyValueFactory<>("apellidoP"));
 		 	Nombres.setCellValueFactory(new PropertyValueFactory<>("nombreUsuario"));
@@ -70,6 +79,7 @@ public class ControllerUsuarios implements Initializable {
 		 	correos.setCellValueFactory(new PropertyValueFactory<>("coreeo"));
 		 	
 			ObservableList<ClassUsuarios> list = getPersonList();
+			
 			tablaUsuario.getItems().setAll(list);
 	    	
 	    	final ObservableList<ClassUsuarios> tablaUsuarioo = tablaUsuario.getSelectionModel().getSelectedItems();
@@ -79,13 +89,13 @@ public class ControllerUsuarios implements Initializable {
 		public ObservableList<ClassUsuarios> getPersonList(){
 			ObservableList<ClassUsuarios> UsuariosList = FXCollections.observableArrayList();
 			Connection connection = ConnectorMySQL.getConnection();
-			String query = "SELECT * FROM listausuarios";
+			
 			Statement st;
 			ResultSet rs;
 			
 			try {
 				st = connection.createStatement();
-				rs = st.executeQuery(query);
+				rs = st.executeQuery(query1);
 				ClassUsuarios Usuarioss;
 				while(rs.next()) {
 					Usuarioss = new ClassUsuarios(rs.getInt("ID"),rs.getString("tipoUsuario"),rs.getString("apellidoPaterno"),rs.getString("nombre"),rs.getString("Correo"));
@@ -97,7 +107,40 @@ public class ControllerUsuarios implements Initializable {
 			return UsuariosList;
 		}
 		
-		
+		@FXML 
+		private void filtrado(ActionEvent event) {
+			String filtro = comboFiltrado.getSelectionModel().getSelectedItem().toString();
+
+			switch(filtro) {
+			case "Por ID":
+				System.out.println(filtro);
+				query1="SELECT * FROM listausuarios order by ID ASC ";
+				initialize(null, null);
+				break;
+			case "Por Nombre":
+				System.out.println(filtro);
+				query1="SELECT * FROM listausuarios order by nombre ASC ";
+				initialize(null, null);
+				break;
+			case "Por Apellido":
+				System.out.println(filtro);
+				query1="SELECT * FROM listausuarios order by apellidoPaterno ASC ";
+				initialize(null, null);
+				break;
+			case "Tipo de Usuario":
+				System.out.println(filtro);
+				query1="SELECT * FROM listausuarios order by tipoUsuario, ID ASC ";
+				initialize(null, null);
+				break;
+			case "Por Correo":
+				System.out.println(filtro);
+				query1="SELECT * FROM listausuarios order by Correo, ID ASC ";
+				initialize(null, null);
+				break;
+
+			}
+			
+		}
 		
 	    public void executeQuery(String query) {
 			Connection conn = ConnectorMySQL.getConnection();

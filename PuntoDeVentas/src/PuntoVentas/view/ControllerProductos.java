@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -31,6 +33,9 @@ import java.sql.ResultSet;
 import PuntoVentas.model.ClassProductos;
 
 public class ControllerProductos implements Initializable{
+	public String query1="select * from datosproduct order by IDtipoProduct ASC";
+	@FXML
+	private ComboBox<String> comboProductoFiltrado;
 	@FXML
 	private Button Regresar;
 	@FXML
@@ -72,7 +77,15 @@ public class ControllerProductos implements Initializable{
     @FXML
     ObservableList<ClassProductos> productList = FXCollections.observableArrayList();
     
+    @FXML
     public void initialize(URL url, ResourceBundle rb) {
+    	
+    	if(comboProductoFiltrado.getItems().isEmpty()) {
+    		comboProductoFiltrado.getItems().removeAll(comboProductoFiltrado.getItems());
+    	    comboProductoFiltrado.getItems().addAll("Tipo de Producto", "ID", "Nombre","Folio","Nombre del Proveedor");
+    	    comboProductoFiltrado.getSelectionModel().select("ID");
+    	}
+	    
     	tipoProduct.setCellValueFactory(new PropertyValueFactory<>("tipoProducto"));
     	CantidadProducto.setCellValueFactory(new PropertyValueFactory<>("cantidadProduct"));
 		idTipoProduct.setCellValueFactory(new PropertyValueFactory<>("tipoProductoID"));
@@ -90,13 +103,12 @@ public class ControllerProductos implements Initializable{
 	public ObservableList<ClassProductos> getPersonList(){
 		ObservableList<ClassProductos> productList = FXCollections.observableArrayList();
 		Connection connection = ConnectorMySQL.getConnection();
-		String query = "SELECT * FROM datosproduct";
 		Statement st;
 		ResultSet rs;
 		
 		try {
 			st = connection.createStatement();
-			rs = st.executeQuery(query);
+			rs = st.executeQuery(query1);
 			ClassProductos Productos;
 			while(rs.next()) {
 				Productos = new ClassProductos(rs.getString("tipoProduct"),rs.getInt("CantidadProduct"),rs.getInt("IDtipoProduct"),rs.getString("nombre"),rs.getString("folioproduct"),rs.getFloat("precio"),rs.getString("nombreProveedor"));
@@ -158,6 +170,41 @@ public class ControllerProductos implements Initializable{
 	return null;
 	}
 	
+	@FXML 
+	private void filtrar(ActionEvent event) {
+		String filtro = comboProductoFiltrado.getSelectionModel().getSelectedItem().toString();
+		
+		switch(filtro) {
+		case "Folio":
+			System.out.println(filtro);
+			query1="select * from datosproduct order by folioproduct ASC";
+			initialize(null, null);
+			break;
+		case "Tipo de Producto":
+			System.out.println(filtro);
+			query1="select * from datosproduct order by tipoProduct ASC";
+			initialize(null, null);
+			break;
+		case "ID":
+			System.out.println(filtro);
+			query1="select * from datosproduct order by IDtipoProduct ASC";
+			initialize(null, null);
+			break;
+		case "Nombre":
+			System.out.println(filtro);
+			query1="select * from datosproduct order by nombre ASC";
+			initialize(null, null);
+			break;
+		case "Nombre del Proveedor":
+			System.out.println(filtro);
+			query1="select * from datosproduct order by nombreProveedor ASC";
+			initialize(null, null);
+			break;
+
+		}
+		
+	}
+    
 	
 	@FXML 
 	private void modificar(ActionEvent event) {

@@ -8,12 +8,12 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="904.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.ControllerListado">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="904.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.ControllerListado">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a72a28" height="524.0" layoutX="71.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" width="787.0" />
       <ImageView fitHeight="648.0" fitWidth="886.0" layoutX="10.0" layoutY="10.0" opacity="0.12" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../imagenes/Screenshot_2020-02-14%2025326374-resumen-elaborado-por-acuarela-de-fondo-ilustración-vectorial-acuarelas-manchas-húmedas-colo%5B...%5D.png" />
+            <Image url="@imagenes/img2.png" />
          </image>
       </ImageView>
       <Label layoutX="372.0" layoutY="45.0" prefHeight="66.0" prefWidth="236.0" text="Menú" textFill="WHITE">

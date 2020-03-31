@@ -21,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -29,6 +30,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class ControllerProveedores {
+	private String query1 = "SELECT * FROM listaproveedores order by IDtipoProduct ASC ";
+	@FXML
+	private ComboBox<String> filtrado;
 	@FXML
 	private Button Regresar;
 	@FXML
@@ -59,6 +63,11 @@ public class ControllerProveedores {
 	
 	@FXML
 	private void initialize() {
+		if(filtrado.getItems().isEmpty()) {
+			filtrado.getItems().removeAll(filtrado.getItems());
+			filtrado.getItems().addAll("ID", "Nombre de Proveedor", "Nombre de Producto","Folio");
+			filtrado.getSelectionModel().select("ID");
+    	}
 		ID.setCellValueFactory(new PropertyValueFactory<>("tipoProductoID"));
 		nombre.setCellValueFactory(new PropertyValueFactory<>("nombreProveedor"));
 		nomProduct.setCellValueFactory(new PropertyValueFactory<>("nombreProducto"));
@@ -73,13 +82,12 @@ public class ControllerProveedores {
 	public ObservableList<ClassProveedores> getPersonList(){
 		ObservableList<ClassProveedores> proveedoresList = FXCollections.observableArrayList();
 		Connection connection = ConnectorMySQL.getConnection();
-		String query = "SELECT * FROM listaproveedores";
 		Statement st;
 		ResultSet rs;
 		
 		try {
 			st = connection.createStatement();
-			rs = st.executeQuery(query);
+			rs = st.executeQuery(query1);
 			ClassProveedores Proveedores;
 			while(rs.next()) {
 				Proveedores = new ClassProveedores(rs.getInt("IDtipoProduct"),rs.getString("nombreProveedor"),rs.getString("nombreProduct"),rs.getString("folioProduct"));
@@ -91,7 +99,35 @@ public class ControllerProveedores {
 		return proveedoresList;
 	}
 	
-	
+	@FXML 
+	private void filtrar(ActionEvent event) {
+		String filtro = filtrado.getSelectionModel().getSelectedItem().toString();
+		
+		switch(filtro) {
+		case "Folio":
+			System.out.println(filtro);
+			query1="SELECT * FROM listaproveedores order by folioProduct ASC ";
+			initialize();
+			break;
+		case "Nombre de Proveedor":
+			System.out.println(filtro);
+			query1="SELECT * FROM listaproveedores order by nombreProveedor,IDtipoProduct ASC ";
+			initialize();
+			break;
+		case "ID":
+			System.out.println(filtro);
+			query1="SELECT * FROM listaproveedores order by IDtipoProduct ASC ";
+			initialize();
+			break;
+		case "Nombre de Producto":
+			System.out.println(filtro);
+			query1="SELECT * FROM listaproveedores order by nombreProduct ASC ";
+			initialize();
+			break;
+
+		}
+		
+	}
 	
     public void executeQuery(String query) {
 		Connection conn = ConnectorMySQL.getConnection();

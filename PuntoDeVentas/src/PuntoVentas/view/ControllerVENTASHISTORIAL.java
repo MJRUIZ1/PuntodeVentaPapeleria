@@ -1,12 +1,15 @@
 package PuntoVentas.view;
 
 
+
 import java.net.URL;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -16,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -33,7 +37,7 @@ public class ControllerVENTASHISTORIAL {
 	private int conta=0;
 	private float sumaCosto;
 	@FXML
-	private Button Salir;
+	private Button Salir,ticket;
 	@FXML
 	private TextField CAJAidproduct;
 	@FXML
@@ -62,6 +66,16 @@ public class ControllerVENTASHISTORIAL {
     private TextField CAJAdarcambio;
     
     ObservableList<ClassProductos> productList = FXCollections.observableArrayList();
+    
+    private String nombre,tipoPersona;
+	
+	
+
+	public void initData(String persona,String tipo) {
+		System.out.println(persona+" "+tipo);
+		nombre=persona;
+		tipoPersona=tipo;
+	}
 	
     @FXML
     public void initialize() {
@@ -78,6 +92,7 @@ public class ControllerVENTASHISTORIAL {
 	public void getProductList(){
 		int resp ;
 		Connection connection = ConnectorMySQL.getConnection();
+		
 		String query = "SELECT * FROM datosproduct WHERE folioproduct = "+ CAJAidproduct.getText();
 		Statement st;
 		ResultSet rs;
@@ -87,7 +102,7 @@ public class ControllerVENTASHISTORIAL {
 			rs = st.executeQuery(query);
 			ClassProductos Productos;
 			while(rs.next()) {
-				Productos = new ClassProductos(rs.getString("tipoProduct"),rs.getInt("CantidadProducto"),rs.getInt("IDtipoProduct"),rs.getString("nombre"),rs.getString("folioproduct"),rs.getFloat("precio"),rs.getString("nombreProveedor"));
+				Productos = new ClassProductos(rs.getString("tipoProduct"),rs.getInt("CantidadProduct"),rs.getInt("IDtipoProduct"),rs.getString("nombre"),rs.getString("folioproduct"),rs.getFloat("precio"),rs.getString("nombreProveedor"));
 				conta++;
 				
 				productList.add(Productos);	
@@ -158,14 +173,21 @@ public class ControllerVENTASHISTORIAL {
 	private Button Regresar;
 	@FXML
 	public void cargarListado() {
+		System.out.println(nombre);
 		try {
-			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLISTADO.fxml"));
-			Scene scene = new Scene (root2);
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("FXMLPuntoVentasLISTADO.fxml"));
+			Parent TableViewParent=loader.load();
+			
+			Scene scene = new Scene (TableViewParent);
+			ControllerListado controller = loader.getController();
+			controller.initData(nombre,tipoPersona);
+			
 			Stage primaryLayout = new Stage();
 			primaryLayout.setScene(scene);
 			primaryLayout.setTitle("FXMLPuntoVentasLISTADO");
 			primaryLayout.show();
-			Stage nuevaEscena =(Stage) this.Regresar.getScene().getWindow();
+			Stage nuevaEscena =(Stage) this.ticket.getScene().getWindow();
 			nuevaEscena.close();
 			
 		} catch (Exception e) {
@@ -180,7 +202,7 @@ public class ControllerVENTASHISTORIAL {
 			
 			
 			try {
-	            String ruta = "D://Eclipse H.W//PuntoDeVentas//TXTtickets.txt";
+	            String ruta = "TXTtickets.txt";
 	            String contenido = "Contenido de ejemplo";
 	            File file = new File(ruta);
 	            // Si el archivo no existe es creado
@@ -200,23 +222,31 @@ public class ControllerVENTASHISTORIAL {
 	
 	
 	private void generarTicket(int nRandom) throws FileNotFoundException, UnsupportedEncodingException {
-		PrintWriter writer = new PrintWriter("TXTtickets/" + String.valueOf(nRandom) + ".txt", "UTF-8");
-		for (ClassProductos classProductos : productList) {
-			writer.println("Folio del ticket: " + nRandom);
-			writer.println("-------------------------");
-			writer.println("Tipo de Producto: " + classProductos.getTipoProducto());
-			writer.println("Nombre: " + classProductos.getNomProducto());
-			writer.println("Folio: " + classProductos.getFolioProducto());
-			writer.println("Precio: $" + classProductos.getPrecio());
-			writer.println("");
-		}
+		LocalTime hora = LocalTime.now();
+		LocalDate fecha = LocalDate.now();;
 		
+		PrintWriter writer = new PrintWriter("TXTtickets/" + String.valueOf(nRandom) + ".txt", "UTF-8");
+		writer.println("Papelería - Generacion de Ticket de Venta");
+		writer.println("");
+		writer.println("Lo atendió: "+nombre);
+		writer.println("Folio del ticket: " + nRandom);
+		writer.println("Fecha: %"+fecha.getDayOfMonth()+"/"+fecha.getMonthValue()+"/"+fecha.getYear()+"% || "+hora.getHour()+":"+hora.getMinute()+":"+hora.getSecond());
+		writer.println("-------------------------\n");
+
+		for (ClassProductos classProductos : productList) {
+			
+			writer.println("Nombre: " + classProductos.getNomProducto()+"    $" + classProductos.getPrecio()+", Folio: <" + classProductos.getFolioProducto()+"> -- Tipo de Producto: " + classProductos.getTipoProducto());
+
+		}
+		writer.println("");
 		writer.println("-------------------------");
 		writer.println("Subtotal: $" + 	CAJAmonto.getText());
 		writer.println("IVA: $" + CAJAmontoIVA.getText());
 		writer.println("Total: $" + CAJAmontopagar.getText());
 		writer.println("Pago: $" + CAJAmontoentrada.getText());
 		writer.println("Cambio: $" + CAJAdarcambio.getText());
+		writer.println("");
+		writer.println("Direccion: X X X X, gracias por su preferencia.");
 		
 		writer.close(); 
 		cargarListado();

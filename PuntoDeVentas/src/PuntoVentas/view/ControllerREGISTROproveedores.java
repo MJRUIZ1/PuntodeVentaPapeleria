@@ -33,8 +33,7 @@ public class ControllerREGISTROproveedores {
 	private TextField CAJAnombreProduct;
 	@FXML
 	private TextField CAJAfolioproduct;
-	@FXML
-	private Spinner<String> CAJAfolioproduct1;
+
 	
 	
 	
@@ -73,26 +72,7 @@ public class ControllerREGISTROproveedores {
 		}
 	}
 	
-	public void spinner1()throws SQLException {
-		ObservableList<String> lista = FXCollections.observableArrayList();
-		Connection cn = ConnectorMySQL.getConnection();
-		String uno="Select nombre from datosproduct";
-		Statement st;
-		ResultSet rs;
-		try {
-			st = cn.createStatement();
-			rs = st.executeQuery(uno);
-			while(rs.next()) {
-				lista.add(rs.getString("nombre"));
-				
-			}
-			
-			CAJAfolioproduct1.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<String>((ObservableList<String>) lista));
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	public void agregar()throws SQLException{
 		Connection cn = ConnectorMySQL.getConnection();
@@ -116,7 +96,4 @@ public class ControllerREGISTROproveedores {
 //        cajanombreProveedor.clear();
     }
 
-    public ControllerREGISTROproveedores() throws SQLException {
-        spinner1(); // Perfectly Ok here, as FXMLLoader already populated all @FXML annotated members. 
-    }
 }

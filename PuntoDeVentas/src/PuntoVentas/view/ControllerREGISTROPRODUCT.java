@@ -84,11 +84,11 @@ public class ControllerREGISTROPRODUCT {
 	@FXML
 	public void regresarLogin() {
 		try {
-			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLOGIN.fxml"));
+			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasLISTADO.fxml"));
 			Scene scene = new Scene (root2);
 			Stage primaryLayout = new Stage();
 			primaryLayout.setScene(scene);
-			primaryLayout.setTitle("FXMLPuntoVentasLOGIN");
+			primaryLayout.setTitle("FXMLPuntoVentasLISTADO");
 			primaryLayout.show();
 			Stage nuevaEscena =(Stage) this.Salir.getScene().getWindow();
 			nuevaEscena.close();

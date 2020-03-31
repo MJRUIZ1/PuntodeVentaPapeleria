@@ -1,7 +1,12 @@
 package PuntoVentas.view;
 
+import java.awt.Label;
+
+import PuntoVentas.model.ClassLogin;
+import javafx.scene.control.TextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -12,6 +17,20 @@ public class ControllerListado {
 	private Button Proveedores;
 	@FXML
 	private Button ventaYflujo;
+	
+	private String nombre,tipoPersona;
+	
+	
+
+	public void initData(String persona,String tipo) {
+		
+		nombre=persona;
+		tipoPersona=tipo;
+		System.out.println(nombre+" "+tipoPersona);
+	}
+	
+
+
 	@FXML
 	public void cargarProveedores() {
 		try {
@@ -143,9 +162,16 @@ public class ControllerListado {
 	
 	@FXML
 	public void cargarVentaYFlujo() {
+		System.out.println(nombre+" "+tipoPersona);
 		try {
-			AnchorPane root2 = (AnchorPane)FXMLLoader.load(getClass().getResource("FXMLPuntoVentasVENTAS.fxml"));
-			Scene scene = new Scene (root2);
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("FXMLPuntoVentasVENTAS.fxml"));
+			Parent TableViewParent=loader.load();
+			
+			Scene scene = new Scene (TableViewParent);
+			ControllerVENTASHISTORIAL controller = loader.getController();
+			controller.initData(nombre,tipoPersona);
+			
 			Stage primaryLayout = new Stage();
 			primaryLayout.setScene(scene);
 			primaryLayout.setTitle("FXMLPuntoVentasVENTAS");

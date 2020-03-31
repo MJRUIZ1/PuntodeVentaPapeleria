@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,12 +10,12 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="904.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.ControllerRegistro">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="904.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PuntoVentas.view.ControllerRegistro">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a72a28" height="524.0" layoutX="75.0" layoutY="44.0" stroke="BLACK" strokeType="INSIDE" width="787.0" />
       <ImageView fitHeight="648.0" fitWidth="886.0" layoutX="20.0" layoutY="20.0" opacity="0.12" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../imagenes/Screenshot_2020-02-14%2025326374-resumen-elaborado-por-acuarela-de-fondo-ilustración-vectorial-acuarelas-manchas-húmedas-colo%5B...%5D.png" />
+            <Image url="@imagenes/img1.png" />
          </image>
       </ImageView>
       <TextField fx:id="CAJAnombre" layoutX="254.0" layoutY="211.0" prefHeight="26.0" prefWidth="428.0" promptText="Nombre" />
@@ -32,16 +31,15 @@
          <font>
             <Font name="Arial Narrow Bold" size="15.0" />
          </font></Button>
-      <MenuButton layoutX="374.0" layoutY="427.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="215.0" text="Tipo de Usuario">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Dueño" />
-          <MenuItem mnemonicParsing="false" text="Administrador" />
-            <MenuItem mnemonicParsing="false" text="Cajero" />
-        </items>
-      </MenuButton>
       <Label layoutX="327.0" layoutY="51.0" prefHeight="94.0" prefWidth="339.0" text="Registro de usuario" textFill="WHITE">
          <font>
             <Font size="37.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="tipoUsuario" layoutX="442.0" layoutY="427.0" prefHeight="25.0" prefWidth="162.0" />
+      <Label layoutX="241.0" layoutY="421.0" prefHeight="38.0" prefWidth="193.0" text="Tipo de Usuario:" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
          </font>
       </Label>
    </children>

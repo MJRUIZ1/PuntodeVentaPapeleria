@@ -25,6 +25,7 @@ public class Main extends Application {
 			//Show the scene containing the root layout
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("FXMLPuntoVentasLOGIN");
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
