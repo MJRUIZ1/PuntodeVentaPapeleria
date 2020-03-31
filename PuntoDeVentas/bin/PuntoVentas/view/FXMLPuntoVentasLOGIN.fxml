@@ -55,6 +55,6 @@
          
       </Text>
       <TextField fx:id="consola" disable="true" layoutX="539.0" layoutY="423.0" prefHeight="35.0" prefWidth="243.0" />
-      <ComboBox fx:id="tipoUsuario" layoutX="589.0" layoutY="382.0" prefWidth="150.0" opacity="0.69" />
+      <ComboBox fx:id="tipoUsuario" layoutX="589.0" layoutY="382.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

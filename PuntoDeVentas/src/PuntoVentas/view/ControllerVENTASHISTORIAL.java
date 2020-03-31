@@ -202,7 +202,7 @@ public class ControllerVENTASHISTORIAL {
 			
 			
 			try {
-	            String ruta = "TXTtickets.txt";
+	            String ruta = "TXTtickets/";
 	            String contenido = "Contenido de ejemplo";
 	            File file = new File(ruta);
 	            // Si el archivo no existe es creado
@@ -225,7 +225,7 @@ public class ControllerVENTASHISTORIAL {
 		LocalTime hora = LocalTime.now();
 		LocalDate fecha = LocalDate.now();;
 		
-		PrintWriter writer = new PrintWriter("TXTtickets/" + String.valueOf(nRandom) + ".txt", "UTF-8");
+		PrintWriter writer = new PrintWriter("C:/Users/87257/Downloads/PuntoDeVentas(2)/TXTtickets" + String.valueOf(nRandom) + ".txt", "UTF-8");
 		writer.println("Papelería - Generacion de Ticket de Venta");
 		writer.println("");
 		writer.println("Lo atendió: "+nombre);
@@ -246,10 +246,12 @@ public class ControllerVENTASHISTORIAL {
 		writer.println("Pago: $" + CAJAmontoentrada.getText());
 		writer.println("Cambio: $" + CAJAdarcambio.getText());
 		writer.println("");
-		writer.println("Direccion: X X X X, gracias por su preferencia.");
+		writer.println("Direccion: Av. central #241 C.P 29000, gracias por su preferencia.");
 		
 		writer.close(); 
 		cargarListado();
+		
+		
 	}
 	
 	@FXML

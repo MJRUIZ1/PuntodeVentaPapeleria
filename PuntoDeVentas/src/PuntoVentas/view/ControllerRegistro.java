@@ -45,8 +45,8 @@ public class ControllerRegistro {
 	@FXML
 	public void initialize() {
 	    tipoUsuario.getItems().removeAll(tipoUsuario.getItems());
-	    tipoUsuario.getItems().addAll("Dueño", "Administrador", "Cajero");
-	    tipoUsuario.getSelectionModel().select("Cajero");
+	    tipoUsuario.getItems().addAll("Dueño", "Administrador", "Usuario");
+	    tipoUsuario.getSelectionModel().select("Usuario");
 
 	}
 	

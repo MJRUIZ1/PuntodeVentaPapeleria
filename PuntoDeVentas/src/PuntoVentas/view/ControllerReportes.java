@@ -128,7 +128,7 @@ public class ControllerReportes {
 		
 		String folioString= folioReporte.getText();
 		try {
-			data = leerArchivo("TXTtickets\\"+folioString+".txt"); 
+			data = leerArchivo("C:/Users/87257/Downloads/PuntoDeVentas(2)/TXTtickets/"+folioString+".txt"); 
 		}
 		catch(Exception e) {
 			consola.setText("Casilla de folio no encontrada");
