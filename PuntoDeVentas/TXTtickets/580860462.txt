@@ -1,0 +1,6 @@
+-------------------------
+Subtotal: $
+IVA: $
+Total: $
+Pago: $
+Cambio: $
